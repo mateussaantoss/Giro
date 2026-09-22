@@ -1,0 +1,25 @@
+{
+  "name": "giro",
+  "version": "1.0.0",
+  "description": "Giro — Sistema de gestão para oficinas mecânicas. Landing page e API de captação de leads.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "oficina",
+    "mecanica",
+    "gestao",
+    "ordem-de-servico",
+    "giro"
+  ],
+  "author": "Giro",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
