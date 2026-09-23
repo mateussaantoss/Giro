@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giro — Sistema para Oficina Mecânica | Gestão de Ordens de Serviço e Atendimento</title>
+  <meta name="description" content="O Giro é um sistema de gestão para oficinas mecânicas que centraliza clientes, veículos, ordens de serviço e atendimento em um só lugar. Organize sua oficina, acompanhe cada serviço e reduza o tempo gasto com tarefas administrativas.">
+  <meta name="keywords" content="sistema para oficina mecânica, gestão de oficina, ordem de serviço automotiva, controle de veículos, painel kanban oficina, atendimento WhatsApp oficina">
+  <meta name="author" content="Giro">
+  <link rel="canonical" href="https://www.giro.com.br/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Giro — Organização que move sua oficina">
+  <meta property="og:description" content="Centralize clientes, veículos e ordens de serviço em um só lugar. Atendimento mais rápido, equipe mais organizada e uma visão clara de tudo o que acontece na sua oficina.">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="theme-color" content="#0b0f14">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("giro-theme"); } catch (e) {}
+      if (!t) t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", t);
+      var mc = document.querySelector('meta[name="theme-color"]');
+      if (mc) mc.setAttribute("content", t === "light" ? "#f1f3ee" : "#0b0f14");
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/landing-refined.css">
+  <link rel="icon" type="image/svg+xml" href="app/mark.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Giro",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "Sistema de gestão para oficinas mecânicas que centraliza clientes, veículos, ordens de serviço, histórico de manutenções e atendimento.",
+    "url": "https://www.giro.com.br/",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#inicio" class="brand" aria-label="Giro — página inicial">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="lgHead" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7dd3fc"/>
+              <stop offset="1" stop-color="#0ea5e9"/>
+            </linearGradient>
+          </defs>
+          <rect width="48" height="48" rx="13" fill="url(#lgHead)"/>
+          <path d="M24 11a13 13 0 1 1-9.2 22.2" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+          <path d="M8 14v9h9" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24" cy="24" r="3" fill="#fff"/>
+        </svg>
+        <span class="brand-name">Giro</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <ul class="nav-list">
+          <li><a href="#recursos" class="nav-link">Recursos</a></li>
+          <li><a href="#planos" class="nav-link">Planos</a></li>
+          <li><a href="#faq" class="nav-link">Dúvidas</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar modo claro e escuro">
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        </button>
+        <a href="/app/#/login" class="btn btn-primary nav-cta">Entrar no GIRO</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="inicio">
+
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="pill">
+            <span class="pill-dot"></span>
+            Gestão feita para oficinas
+          </span>
+          <h1>Menos papelada.<br><span class="hero-highlight">Mais oficina.</span></h1>
+          <p class="hero-sub">Acompanhe cada veículo, organize as ordens de serviço e mantenha sua equipe no mesmo ritmo.</p>
+          <div class="hero-actions">
+            <a href="/app/" class="btn btn-primary btn-lg">
+              Ver o GIRO funcionando
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#contato" class="btn btn-ghost-dark btn-lg">
+              Agendar demonstração
+            </a>
+          </div>
+          <ul class="hero-tick">
+            <li><span>✓</span> Pátio visual</li>
+            <li><span>✓</span> Ordens organizadas</li>
+            <li><span>✓</span> Atendimento integrado</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <div class="glow glow-a" aria-hidden="true"></div>
+          <div class="app-window">
+            <div class="app-window-inner">
+            <div class="app-topbar">
+              <div class="window-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="app-tabs" role="tablist" aria-label="Demonstração do Giro">
+                <button class="app-tab" data-tab="painel" role="tab" aria-selected="false" type="button">Painel</button>
+                <button class="app-tab app-tab-active" data-tab="kanban" role="tab" aria-selected="true" type="button">Kanban</button>
+                <button class="app-tab" data-tab="clientes" role="tab" aria-selected="false" type="button">Clientes</button>
+              </div>
+              <span class="app-brand-mini" aria-hidden="true">Giro</span>
+            </div>
+            <div class="app-body">
+              <div class="panel panel-active" data-panel="kanban">
+              <div class="kanban-hint"><span class="kh-dot" aria-hidden="true"></span>Clique em um veículo para avançar de etapa</div>
+              <div class="hero-stats">
+                <div class="mini-stat"><span class="mini-stat-label">Em andamento</span><span class="mini-stat-value" data-stat="em-andamento">12</span></div>
+                <div class="mini-stat"><span class="mini-stat-label">Prontos</span><span class="mini-stat-value" data-stat="prontos">3</span></div>
+                <div class="mini-stat"><span class="mini-stat-label">Aguardando</span><span class="mini-stat-value" data-stat="aguardando">5</span></div>
+              </div>
+              <div class="hero-kanban">
+                <div class="kanban-col" data-col="0">
+                  <span class="kanban-col-title"><i class="dot dot-gray"></i>Aguardando</span>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Onix 2020</span>
+                    <span class="vc-plate">BRA·2E19</span>
+                    <span class="vc-tag tag-amber">Aguardando</span>
+                  </div>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Gol 2014</span>
+                    <span class="vc-plate">XYZ·9A12</span>
+                    <span class="vc-tag tag-gray">Aguardando</span>
+                  </div>
+                </div>
+                <div class="kanban-col" data-col="1">
+                  <span class="kanban-col-title"><i class="dot dot-blue"></i>Diagnóstico</span>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Uno 2018</span>
+                    <span class="vc-plate">KLM·4B77</span>
+                    <span class="vc-tag tag-blue">Diagnóstico</span>
+                  </div>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Saveiro 2016</span>
+                    <span class="vc-plate">PQR·3C02</span>
+                    <span class="vc-tag tag-blue">Diagnóstico</span>
+                  </div>
+                </div>
+                <div class="kanban-col" data-col="2">
+                  <span class="kanban-col-title"><i class="dot dot-green"></i>Manutenção</span>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Corolla 2019</span>
+                    <span class="vc-plate">TUV·8E44</span>
+                    <span class="vc-tag tag-green">Em serviço</span>
+                  </div>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Palio 2012</span>
+                    <span class="vc-plate">WXY·5F31</span>
+                    <span class="vc-tag tag-green">Em serviço</span>
+                  </div>
+                </div>
+                <div class="kanban-col" data-col="3">
+                  <span class="kanban-col-title"><i class="dot dot-check"></i>Pronto</span>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Creta 2021</span>
+                    <span class="vc-plate">JHG·7D90</span>
+                    <span class="vc-tag tag-check">Entregar</span>
+                  </div>
+                  <div class="vehicle-card">
+                    <span class="vc-vehicle">Kwid 2022</span>
+                    <span class="vc-plate">ASD·2G54</span>
+                    <span class="vc-tag tag-check">Entregar</span>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+                <div class="panel" data-panel="painel">
+                  <div class="hero-stats">
+                    <div class="mini-stat"><span class="mini-stat-label">Faturamento do mês</span><span class="mini-stat-value">R$ 38,4k</span></div>
+                    <div class="mini-stat"><span class="mini-stat-label">Serviços hoje</span><span class="mini-stat-value">7</span></div>
+                    <div class="mini-stat"><span class="mini-stat-label">Retorno de clientes</span><span class="mini-stat-value">92%</span></div>
+                  </div>
+                  <div class="chart-card">
+                    <div class="chart-title">Serviços esta semana</div>
+                    <div class="chart-bars">
+                      <div class="bar" style="--h:42%"><i></i><span>Seg</span></div>
+                      <div class="bar" style="--h:64%"><i></i><span>Ter</span></div>
+                      <div class="bar" style="--h:36%"><i></i><span>Qua</span></div>
+                      <div class="bar" style="--h:82%"><i></i><span>Qui</span></div>
+                      <div class="bar" style="--h:56%"><i></i><span>Sex</span></div>
+                      <div class="bar" style="--h:71%"><i></i><span>Sáb</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel" data-panel="clientes">
+                  <div class="client-list">
+                    <div class="client-row"><span class="client-avatar av1">JR</span><div class="client-info"><strong>José Ramos</strong><span>Onix 2020 · BRA·2E19</span></div><span class="client-status st-ready">Pronto</span></div>
+                    <div class="client-row"><span class="client-avatar av2">MS</span><div class="client-info"><strong>Maria Souza</strong><span>Corolla 2019 · TUV·8E44</span></div><span class="client-status st-work">Em serviço</span></div>
+                    <div class="client-row"><span class="client-avatar av3">AP</span><div class="client-info"><strong>André Pereira</strong><span>Saveiro 2016 · PQR·3C02</span></div><span class="client-status st-done">Entregue</span></div>
+                    <div class="client-row"><span class="client-avatar av4">LC</span><div class="client-info"><strong>Lúcia Costa</strong><span>Palio 2012 · WXY·5F31</span></div><span class="client-status st-wait">Aguardando</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="float-card float-top" aria-hidden="true">
+            <span class="fc-ico fc-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            <div>
+              <strong>Serviço entregue</strong>
+              <span>Creta 2021 · há 2 min</span>
+            </div>
+          </div>
+          <div class="float-card float-bottom" aria-hidden="true">
+            <span class="fc-ico fc-orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </span>
+            <div>
+              <strong>Novo no WhatsApp</strong>
+              <span>Clientes na fila: 4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Onix</span><span>Gol</span><span>Corolla</span><span>Uno</span><span>Saveiro</span><span>Creta</span><span>Palio</span><span>Kwid</span><span>Hb20</span><span>Fusca</span><span>Ka</span><span>Ranger</span><span>Fit</span><span>Gol</span><span>Civic</span><span>Ecosport</span><span>Argo</span><span>Rav4</span><span>Strada</span><span>Jeep</span>
+        <span>Onix</span><span>Gol</span><span>Corolla</span><span>Uno</span><span>Saveiro</span><span>Creta</span><span>Palio</span><span>Kwid</span><span>Hb20</span><span>Fusca</span><span>Ka</span><span>Ranger</span><span>Fit</span><span>Gol</span><span>Civic</span><span>Ecosport</span><span>Argo</span><span>Rav4</span><span>Strada</span><span>Jeep</span>
+      </div>
+    </div>
+
+    <section class="section stats-section" aria-label="Números do Giro">
+      <div class="container stats-grid">
+        <div class="stat">
+          <span class="stat-value"><span data-count="360">0</span>+</span>
+          <span class="stat-label">veículos acompanhados</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value"><span data-count="98">0</span>%</span>
+          <span class="stat-label">entregas no prazo</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value"><span data-count="40">0</span>%</span>
+          <span class="stat-label">menos tempo administrativo</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">14</span>
+          <span class="stat-label">dias de teste grátis</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="recursos">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">A solução</span>
+          <h2>Da entrada à entrega, tudo sob controle.</h2>
+          <p class="section-text">O essencial para a rotina da oficina, sem telas complicadas.</p>
+        </div>
+        <div class="bento">
+          <article class="card feature-card feature-kanban">
+            <div class="feature-top">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 9v12"/></svg>
+              </div>
+              <h3>Painel Kanban</h3>
+              <p>Veja onde está cada veículo e o que precisa da sua atenção.</p>
+            </div>
+            <div class="feature-mini" aria-hidden="true">
+              <div class="mini-col"><span class="mini-col-title">Aguardando</span><span class="fc chip-list">Vectra 2008</span><span class="fc chip-list">Clio 2010</span></div>
+              <div class="mini-col"><span class="mini-col-title">Diagnóstico</span><span class="fc chip-list">Ecosport 2015</span></div>
+              <div class="mini-col"><span class="mini-col-title">Manutenção</span><span class="fc chip-list">S10 2017</span><span class="fc chip-list">Civic 2013</span></div>
+            </div>
+          </article>
+          <article class="card feature-card feature-wa">
+            <div class="feature-top">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.94-1.6A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-2.93.95.96-2.86-.2-.3a8.28 8.28 0 1 1 6.73 3.55Zm4.54-6.2c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.44.25-.4.72-1.35.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.12.16 1.72 2.62 4.16 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+              </div>
+              <h3>Atendimento pelo WhatsApp</h3>
+              <p>Transforme conversas em atendimentos organizados e novas ordens de serviço.</p>
+            </div>
+            <div class="feature-mini wa-mini" aria-hidden="true">
+              <div class="wa-bubble incoming"><p>Quero trocar o óleo do meu Corsa.</p></div>
+              <div class="wa-bubble outgoing"><p>Recebido! Placa e modelo confirmados. Atendimento cadastrado.</p></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a6 6 0 0 1 12 0v2"/><path d="M16 3.1a4 4 0 0 1 0 7.8M21 21v-2a6 6 0 0 0-3.5-5.5"/></svg>
+            </div>
+            <h3>Clientes e veículos</h3>
+            <p>Encontre dados e histórico sem procurar em cadernos ou conversas.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+            </div>
+            <h3>Ordens de serviço</h3>
+            <p>Registre serviços, responsáveis, prazos e valores em poucos passos.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <h3>Histórico de serviços</h3>
+            <p>Consulte os serviços realizados anteriormente em cada veículo e tenha mais contexto para novos atendimentos.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5c0 3 1 5 1 5a4 4 0 0 0 8 0s1-2 1-5a5 5 0 0 0-5-5Z"/><path d="M9 22h6M10 18.7 8.5 22M15 18.7 16.5 22"/></svg>
+            </div>
+            <h3>Usuários e permissões</h3>
+            <p>Controle o acesso de donos, gerentes, atendentes e mecânicos de acordo com suas responsabilidades.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Como funciona</span>
+          <h2>Simples desde o primeiro dia.</h2>
+        </div>
+        <div class="steps-grid">
+          <article class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Cadastre sua oficina</h3>
+            <p>Informe os dados básicos da operação e da equipe.</p>
+          </article>
+          <article class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Organize clientes e veículos</h3>
+            <p>Centralize placas, contatos e históricos importantes.</p>
+          </article>
+          <article class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Acompanhe cada serviço</h3>
+            <p>Acompanhe o trabalho da chegada até a entrega das chaves.</p>
+          </article>
+        </div>
+        <div class="flow" aria-label="Fluxo de funcionamento do Giro">
+          <ol class="flow-list">
+            <li><span class="flow-dot" aria-hidden="true"></span>Cliente entra em contato</li>
+            <li><span class="flow-dot" aria-hidden="true"></span>Veículo é cadastrado</li>
+            <li><span class="flow-dot" aria-hidden="true"></span>Ordem de serviço é criada</li>
+            <li><span class="flow-dot" aria-hidden="true"></span>Serviço é acompanhado</li>
+            <li><span class="flow-dot" aria-hidden="true"></span>Cliente é atualizado</li>
+            <li><span class="flow-dot" aria-hidden="true"></span>Veículo é entregue</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="planos">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Planos e preços</span>
+          <h2>Um plano para cada ritmo.</h2>
+          <p class="section-text">Todos incluem 14 dias grátis, sem cartão e sem fidelidade.</p>
+        </div>
+
+        <div class="billing-toggle" role="group" aria-label="Período de cobrança">
+          <button type="button" class="billing-option billing-active" data-billing="monthly" aria-pressed="true">Mensal</button>
+          <button type="button" class="billing-option" data-billing="yearly" aria-pressed="false">Anual <span class="billing-badge">2 meses grátis</span></button>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <div class="pricing-head">
+              <h3>Essencial</h3>
+              <p>Para oficinas que estão começando a se organizar.</p>
+            </div>
+            <div class="pricing-price">
+              <span class="price-currency">R$</span>
+              <span class="price-value" data-monthly="79" data-yearly="66">79</span>
+              <span class="price-period">/mês</span>
+            </div>
+            <p class="pricing-note">Cobrado mensalmente<span class="price-yearly-note" data-yearly-total="790" hidden> · R$ 790 por ano</span></p>
+            <ul class="pricing-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Cadastro ilimitado de clientes e veículos</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ordens de serviço</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Histórico de serviços por veículo</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Painel de acompanhamento básico</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Até 3 usuários</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Suporte por WhatsApp</li>
+            </ul>
+            <a href="#contato" class="btn btn-ghost-plan pricing-cta" data-plano="Essencial">Começar teste grátis</a>
+          </article>
+
+          <article class="pricing-card pricing-featured">
+            <span class="pricing-flag">Mais escolhido</span>
+            <div class="pricing-head">
+              <h3>Pro</h3>
+              <p>Para oficinas que querem controle total do fluxo.</p>
+            </div>
+            <div class="pricing-price">
+              <span class="price-currency">R$</span>
+              <span class="price-value" data-monthly="149" data-yearly="124">149</span>
+              <span class="price-period">/mês</span>
+            </div>
+            <p class="pricing-note">Cobrado mensalmente<span class="price-yearly-note" data-yearly-total="1490" hidden> · R$ 1.490 por ano</span></p>
+            <ul class="pricing-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tudo do plano Essencial</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Painel Kanban completo</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Permissões por perfil de usuário</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Notificações para a equipe</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Integração com o WhatsApp da oficina</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Até 10 usuários</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Atendimento prioritário</li>
+            </ul>
+            <a href="#contato" class="btn btn-primary pricing-cta" data-plano="Pro">Começar teste grátis</a>
+          </article>
+
+          <article class="pricing-card">
+            <div class="pricing-head">
+              <h3>Total</h3>
+              <p>Para oficinas que querem automatizar o atendimento.</p>
+            </div>
+            <div class="pricing-price">
+              <span class="price-currency">R$</span>
+              <span class="price-value" data-monthly="249" data-yearly="208">249</span>
+              <span class="price-period">/mês</span>
+            </div>
+            <p class="pricing-note">Cobrado mensalmente<span class="price-yearly-note" data-yearly-total="2490" hidden> · R$ 2.490 por ano</span></p>
+            <ul class="pricing-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tudo do plano Pro</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Bot de atendimento automatizado no WhatsApp</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Usuários ilimitados</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Relatórios e métricas da oficina</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Onboarding personalizado</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Suporte dedicado</li>
+            </ul>
+            <a href="#contato" class="btn btn-ghost-plan pricing-cta" data-plano="Total">Começar teste grátis</a>
+          </article>
+        </div>
+
+        <p class="pricing-fineprint">Valores em reais (BRL). Sem taxas de implantação, sem fidelidade e com cancelamento a qualquer momento. Todos os planos com 14 dias de teste gratuito, sem cartão de crédito.</p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="faq-layout">
+          <aside class="faq-side">
+            <span class="eyebrow">FAQ</span>
+            <h2>Perguntas frequentes</h2>
+            <p class="section-text">Respostas rápidas antes de começar.</p>
+            <div class="support-card">
+              <span class="support-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.94-1.6A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-2.93.95.96-2.86-.2-.3a8.28 8.28 0 1 1 6.73 3.55Zm4.54-6.2c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.44.25-.4.72-1.35.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.12.16 1.72 2.62 4.16 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+              </span>
+              <strong>Fale com a equipe no WhatsApp</strong>
+              <p>Resposta rápida em horário comercial.</p>
+              <a href="https://wa.me/5551996065091?text=Ol%C3%A1!%20Quero%20falar%20com%20a%20equipe%20do%20Giro." target="_blank" rel="noopener" class="btn btn-whatsapp btn-block">Chamar no WhatsApp</a>
+              <a href="#contato" class="btn btn-ghost-dark btn-block">Solicitar demonstração</a>
+            </div>
+          </aside>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg></span>
+                <span>O que é o Giro?</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-a"><div><p>O Giro é um sistema de gestão para oficinas mecânicas que centraliza clientes, veículos, ordens de serviço, histórico e atendimento.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></span>
+                <span>O Giro substitui o WhatsApp?</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-a"><div><p>Não. O Giro organiza o atendimento e pode integrar o fluxo de comunicação pelo WhatsApp, ajudando a transformar as conversas em informações úteis para a oficina.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg></span>
+                <span>Preciso instalar algum programa?</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-a"><div><p>Não. O Giro funciona como um sistema web acessível pelo navegador, em qualquer dispositivo com internet.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                <span>Posso cadastrar minha equipe?</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-a"><div><p>Sim. O sistema possui usuários e permissões para donos, gerentes, atendentes e mecânicos.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3Z"/></svg></span>
+                <span>Como posso conhecer o Giro?</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="faq-a"><div><p>Clique em “Solicitar demonstração” ou entre em contato pelo WhatsApp. Faremos uma demonstração personalizada da sua oficina.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark section-contact" id="contato">
+      <div class="container">
+        <div class="contact-wrap">
+          <div class="contact-copy">
+            <h2>Veja o GIRO na sua oficina.</h2>
+            <p>Conte um pouco sobre sua oficina e nossa equipe entrará em contato para apresentar o sistema de acordo com a sua rotina.</p>
+            <div class="contact-alternative">
+              <p>Prefere falar diretamente com a equipe?</p>
+              <a href="https://wa.me/5551996065091?text=Ol%C3%A1!%20Quero%20falar%20com%20a%20equipe%20do%20Giro." target="_blank" rel="noopener" class="btn btn-ghost-dark">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.94-1.6A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-2.93.95.96-2.86-.2-.3a8.28 8.28 0 1 1 6.73 3.55Zm4.54-6.2c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.44.25-.4.72-1.35.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.12.16 1.72 2.62 4.16 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+                Falar pelo WhatsApp
+              </a>
+            </div>
+            <p class="contact-assurance">Demonstração sem compromisso · Atendimento em todo o Brasil</p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Solicite uma demonstração</h3>
+            <p class="contact-card-sub">Preencha os dados abaixo e nossa equipe entrará em contato para agendar uma demonstração do Giro.</p>
+
+            <form id="contactForm" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="fNome">Nome</label>
+                  <input type="text" id="fNome" name="nome" autocomplete="name" placeholder="Seu nome" required>
+                  <span class="field-error" id="errNome"></span>
+                </div>
+                <div class="field">
+                  <label for="fOficina">Nome da oficina</label>
+                  <input type="text" id="fOficina" name="oficina" autocomplete="organization" placeholder="Nome da oficina" required>
+                  <span class="field-error" id="errOficina"></span>
+                </div>
+                <div class="field">
+                  <label for="fWhats">WhatsApp</label>
+                  <input type="tel" id="fWhats" name="whats" autocomplete="tel-national" inputmode="tel" placeholder="(00) 00000-0000" required>
+                  <span class="field-error" id="errWhats"></span>
+                </div>
+                <div class="field">
+                  <label for="fEmail">E-mail</label>
+                  <input type="email" id="fEmail" name="email" autocomplete="email" placeholder="voce@oficina.com.br" required>
+                  <span class="field-error" id="errEmail"></span>
+                </div>
+                <div class="field combobox-field" data-combobox="uf">
+                  <label for="fUfSearch">UF / Estado</label>
+                  <div class="lead-combobox">
+                    <input type="text" id="fUfSearch" autocomplete="address-level1" placeholder="Pesquise o estado" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="fUfOptions">
+                    <button type="button" class="combobox-toggle" data-combobox-toggle="uf" aria-label="Abrir estados" aria-controls="fUfOptions">⌄</button>
+                    <div class="lead-combobox-options" id="fUfOptions" role="listbox"></div>
+                  </div>
+                  <input type="hidden" id="fUf" name="uf">
+                  <span class="field-error" id="errUf"></span>
+                </div>
+                <div class="field combobox-field" data-combobox="cidade">
+                  <label for="fCidadeSearch">Cidade</label>
+                  <div class="lead-combobox">
+                    <input type="text" id="fCidadeSearch" autocomplete="address-level2" placeholder="Selecione o estado primeiro" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="fCidadeOptions" disabled>
+                    <button type="button" class="combobox-toggle" data-combobox-toggle="cidade" aria-label="Abrir cidades" aria-controls="fCidadeOptions" disabled>⌄</button>
+                    <div class="lead-combobox-options" id="fCidadeOptions" role="listbox"></div>
+                  </div>
+                  <input type="hidden" id="fCidade" name="cidade">
+                  <span class="field-error" id="errCidade"></span>
+                </div>
+                <div class="field field-full">
+                  <label for="fMsg">Mensagem</label>
+                  <textarea id="fMsg" name="mensagem" rows="4" placeholder="Conte um pouco sobre sua oficina e o que você precisa…" required></textarea>
+                  <span class="field-error" id="errMsg"></span>
+                </div>
+              </div>
+              <div class="form-msg" id="formMsg" role="alert" aria-live="polite" hidden></div>
+              <button type="submit" class="btn btn-primary btn-lg btn-block">
+                Solicitar demonstração
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+               <p class="form-note">Sua solicitação será enviada por e-mail para a equipe do GIRO, que entrará em contato com você.</p>
+            </form>
+
+            <div class="form-success" id="formSuccess" role="status" aria-live="polite" hidden>
+              <span class="success-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+               <h4>Solicitação enviada com sucesso!</h4>
+               <p>Seus dados foram enviados por e-mail para a equipe do GIRO. Em breve entraremos em contato com você.</p>
+               <p class="contact-success-alternative">Prefere falar agora?</p>
+               <a id="successWa" href="#" target="_blank" rel="noopener" class="btn btn-ghost-dark btn-block contact-secondary-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.94-1.6A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-2.93.95.96-2.86-.2-.3a8.28 8.28 0 1 1 6.73 3.55Zm4.54-6.2c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.44.25-.4.72-1.35.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.12.16 1.72 2.62 4.16 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+                 Falar com a equipe pelo WhatsApp
+              </a>
+               <button type="button" class="btn btn-ghost-dark btn-block" id="successBack">Enviar outra solicitação</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-banner-section" aria-label="Comece a usar o Giro">
+      <div class="container">
+        <div class="cta-banner">
+          <div class="cta-banner-bg" aria-hidden="true"></div>
+          <div class="cta-banner-inner">
+            <span class="pill pill-cta">
+              <span class="pill-dot"></span>
+              Teste grátis por 14 dias
+            </span>
+            <h2>Pronto para dar o primeiro <span class="hero-highlight">Giro</span>?</h2>
+            <p>Organize sua oficina, acompanhe cada serviço e reduza o tempo gasto com tarefas administrativas. Sem fidelidade, sem cartão de crédito.</p>
+            <div class="hero-actions">
+              <a href="#contato" class="btn btn-primary btn-lg">
+                Quero começar agora
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+                  <a href="https://wa.me/5551996065091?text=Ol%C3%A1!%20Quero%20falar%20com%20a%20equipe%20do%20Giro." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">Falar com a equipe</a>
+            </div>
+            <ul class="hero-tick cta-tick">
+              <li><span>✓</span> 14 dias grátis</li>
+              <li><span>✓</span> Sem cartão de crédito</li>
+              <li><span>✓</span> Sem fidelidade</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="rodape">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#inicio" class="brand" aria-label="Giro — página inicial">
+            <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+              <defs>
+                <linearGradient id="lgFoot" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#7dd3fc"/>
+                  <stop offset="1" stop-color="#0ea5e9"/>
+                </linearGradient>
+              </defs>
+              <rect width="48" height="48" rx="13" fill="url(#lgFoot)"/>
+              <path d="M24 11a13 13 0 1 1-9.2 22.2" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path d="M8 14v9h9" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="24" cy="24" r="3" fill="#fff"/>
+            </svg>
+            <span class="brand-name">Giro</span>
+          </a>
+          <p class="footer-tagline">Organização que move sua oficina.</p>
+        </div>
+        <div class="footer-col">
+          <span class="footer-title">Navegação</span>
+          <ul>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#planos">Planos e preços</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <span class="footer-title">Legal</span>
+          <ul>
+            <li><a href="#rodape">Política de privacidade</a></li>
+            <li><a href="#rodape">Termos de uso</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <span class="footer-title">Atendimento</span>
+          <ul>
+            <li><a href="https://wa.me/5551996065091?text=Ol%C3%A1!%20Quero%20falar%20com%20a%20equipe%20do%20Giro." target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
+          <div class="socials">
+            <a href="#rodape" aria-label="Instagram do Giro" class="social">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#rodape" aria-label="Facebook do Giro" class="social">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 8h2.5V4.5H14c-2.3 0-4 1.7-4 4v2.5H7.5V14H10v6h3v-6h2.8l.8-2.5H13V8.5c0-.7.5-1 1-1Z"/></svg>
+            </a>
+            <a href="#rodape" aria-label="LinkedIn do Giro" class="social">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.1 8.3c2.9 0 5.1 1.9 5.1 6v6.7h-3.6v-6c0-1.5-.5-2.5-1.9-2.5-1 0-1.6.7-1.9 1.4-.1.2-.1.6-.1.9v6.2H9.9V8.6h3.5v1.8c.5-.7 1.3-1.8 3.2-1.8.2 0 .3 0 .5 0Z"/><rect x="2.2" y="8.6" width="3.6" height="12.4" rx="0.5" fill="currentColor" stroke="none"/><circle cx="4" cy="4.3" r="2" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Giro. Todos os direitos reservados.</p>
+        <p class="footer-phrase">Giro — organização que move sua oficina.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5551996065091?text=Ol%C3%A1!%20Quero%20falar%20com%20a%20equipe%20do%20Giro." target="_blank" rel="noopener" class="whatsapp-float" aria-label="Falar com a equipe pelo WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.94-1.6A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-2.93.95.96-2.86-.2-.3a8.28 8.28 0 1 1 6.73 3.55Zm4.54-6.2c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.44.25-.4.72-1.35.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.12.16 1.72 2.62 4.16 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+  </a>
+
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
