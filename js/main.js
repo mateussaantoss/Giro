@@ -212,6 +212,8 @@
   }
 
   function setError(input, errEl, message) {
+    var visibleInput = input.type === "hidden" ? input.parentElement.querySelector('[role="combobox"]') : input;
+    if (visibleInput) visibleInput.setAttribute("aria-invalid", "true");
     var wrapper = input.closest(".field");
     if (wrapper) {
       wrapper.classList.add("error");
@@ -222,6 +224,8 @@
   }
 
   function clearError(input, errEl) {
+    var visibleInput = input.type === "hidden" ? input.parentElement.querySelector('[role="combobox"]') : input;
+    if (visibleInput) visibleInput.removeAttribute("aria-invalid");
     var wrapper = input.closest(".field");
     if (wrapper) {
       wrapper.classList.remove("error");
@@ -376,7 +380,7 @@
         valid = false;
         setError(input, errEl, errorMsg);
         if (!firstInvalid) {
-          firstInvalid = input;
+          firstInvalid = input.type === "hidden" ? input.parentElement.querySelector('[role="combobox"]') : input;
         }
       } else {
         clearError(input, errEl);
@@ -459,6 +463,8 @@
       successEl.hidden = true;
       form.hidden = false;
       form.reset();
+      var submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.disabled = false;
       var cityCombo = document.querySelector('[data-location-combobox="city"]');
       if (cityCombo) {
         cityCombo.querySelector('[role="combobox"]').disabled = true;
