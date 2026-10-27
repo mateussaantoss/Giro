@@ -1325,15 +1325,21 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
 .faq-a {
   display: grid;
   grid-template-rows: 0fr;
+  min-height: 0;
+  visibility: hidden;
   transition: grid-template-rows 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.faq-item.open .faq-a { grid-template-rows: 1fr; }
+.faq-item.open .faq-a { grid-template-rows: 1fr; visibility: visible; }
 
 .faq-a > div {
   overflow: hidden;
-  padding: 0 22px 20px;
+  min-height: 0;
+  padding: 0 22px;
+  transition: padding 0.3s ease;
 }
+
+.faq-item.open .faq-a > div { padding-bottom: 20px; }
 
 .faq-a p { color: var(--muted); font-size: 0.95rem; }
 
@@ -1355,13 +1361,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.2; letter-spac
   gap: 56px;
   align-items: center;
 }
-
-.contact-copy h2 {
-  font-size: clamp(1.9rem, 4vw, 2.5rem);
-  margin-bottom: 18px;
-}
-
-.contact-copy p { color: var(--muted); font-size: 1.05rem; margin-bottom: 30px; max-width: 42ch; }
 
 .contact-info { padding: 0; display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
 

@@ -1,0 +1,60 @@
+{
+  "name": "GIRO - Tools para incorporar ao agente existente",
+  "nodes": [
+    {
+      "parameters": {
+        "toolDescription": "Consulte os mecanicos ativos da oficina antes de oferecer nomes ou escolher IDs. Pergunte a preferencia do cliente e confirme ambiguidades. Nunca invente IDs. Sem preferencia, deixe assignedUserId vazio; isto nao confirma disponibilidade ou agendamento.",
+        "url": "http://host.docker.internal:3000/api/ai/mechanics",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "X-N8N-Token", "value": "CONFIGURE_N8N_API_TOKEN" }] },
+        "options": {}
+      },
+      "id": "99c26543-c2b4-47a8-b543-5d71c28d1001",
+      "name": "Buscar Mecânicos",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.5,
+      "position": [0, 300]
+    },
+    {
+      "parameters": {
+        "toolDescription": "Consulte o catalogo ativo da oficina para obter IDs, nomes e precos padrao reais. q e opcional: vazio lista todos. Nao invente servicos, precos ou IDs. Se houver ambiguidade, pergunte ao cliente qual servico deseja. Informe que o preco e estimado, sujeito a avaliacao, nao agendamento confirmado.",
+        "url": "http://host.docker.internal:3000/api/ai/services",
+        "sendQuery": true,
+        "queryParameters": { "parameters": [{ "name": "q", "value": "={{ $fromAI('q', 'Trecho opcional do nome do servico; vazio para listar o catalogo', 'string', '') }}" }] },
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "X-N8N-Token", "value": "CONFIGURE_N8N_API_TOKEN" }] },
+        "options": {}
+      },
+      "id": "99c26543-c2b4-47a8-b543-5d71c28d1002",
+      "name": "Buscar Serviços",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.5,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "toolDescription": "Crie a OS somente apos confirmar os dados do cliente e veiculo e consultar as tools de mecanicos e servicos. Use apenas IDs reais retornados, com escolha confirmada; vazio permite cadastro progressivo sem inventar atribuicao ou preco. description e o relato do cliente. O servidor calcula o snapshot do catalogo, nao aceita preco livre da IA. Confirme ambiguidades antes de criar. A OS e estimativa, nao agendamento confirmado. Em 409 nao troque messageId para forcar nova OS.",
+        "method": "POST",
+        "url": "http://host.docker.internal:3000/api/ai/service-orders",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "X-N8N-Token", "value": "CONFIGURE_N8N_API_TOKEN" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { plate: $fromAI('plate', 'Placa real do veiculo confirmada pelo cliente', 'string'), description: $fromAI('description', 'Relato do problema informado pelo cliente, sem inventar diagnostico', 'string'), customerPhone: $('HTTP Request1').item.json.message.phone, assignedUserId: $fromAI('assignedUserId', 'ID real retornado por Buscar Mecânicos após escolha confirmada do cliente; vazio se sem preferência', 'string'), serviceTemplateId: $fromAI('serviceTemplateId', 'ID real retornado por Buscar Serviços após escolha confirmada do cliente; vazio se ainda sem serviço definido', 'string'), messageId: $('Webhook').item.json.body.data.key.id } }}",
+        "options": {}
+      },
+      "id": "99c26543-c2b4-47a8-b543-5d71c28d1003",
+      "name": "Criar Ordem de Serviço",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.5,
+      "position": [480, 300]
+    }
+  ],
+  "connections": {
+    "Buscar Mecânicos": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] },
+    "Buscar Serviços": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] },
+    "Criar Ordem de Serviço": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": {}
+}

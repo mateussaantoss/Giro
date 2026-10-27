@@ -1,7 +1,6 @@
 (function () {
   "use strict";
 
-  var WHATS_APP_NUMBER = "5500000000000";
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var header = document.getElementById("header");
@@ -187,7 +186,6 @@
   var form = document.getElementById("contactForm");
   var msgEl = document.getElementById("formMsg");
   var successEl = document.getElementById("formSuccess");
-  var successWa = document.getElementById("successWa");
   var backBtn = document.getElementById("successBack");
   var whatsInput = document.getElementById("fWhats");
 
@@ -250,6 +248,95 @@
 
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  var brazilianStates = [
+    ["AC", "Acre"], ["AL", "Alagoas"], ["AP", "Amapá"], ["AM", "Amazonas"], ["BA", "Bahia"], ["CE", "Ceará"],
+    ["DF", "Distrito Federal"], ["ES", "Espírito Santo"], ["GO", "Goiás"], ["MA", "Maranhão"], ["MT", "Mato Grosso"],
+    ["MS", "Mato Grosso do Sul"], ["MG", "Minas Gerais"], ["PA", "Pará"], ["PB", "Paraíba"], ["PR", "Paraná"],
+    ["PE", "Pernambuco"], ["PI", "Piauí"], ["RJ", "Rio de Janeiro"], ["RN", "Rio Grande do Norte"], ["RS", "Rio Grande do Sul"],
+    ["RO", "Rondônia"], ["RR", "Roraima"], ["SC", "Santa Catarina"], ["SP", "São Paulo"], ["SE", "Sergipe"], ["TO", "Tocantins"]
+  ].map(function (item) { return { uf: item[0], name: item[1] }; });
+  var cityCache = {};
+  var normalizeLocation = function (value) { return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); };
+  function stateLabel(uf) {
+    var state = brazilianStates.find(function (item) { return item.uf === uf; });
+    return state ? state.name + " - " + state.uf : "";
+  }
+  function renderLocationOptions(combo) {
+    var type = combo.getAttribute("data-location-combobox");
+    var input = combo.querySelector('[role="combobox"]');
+    var selected = combo.querySelector("input[type=hidden]").value;
+    var selectedUf = field("fEstado").value;
+    var query = normalizeLocation(input.value === (type === "state" ? stateLabel(selected) : selected) ? "" : input.value);
+    var items = type === "state" ? brazilianStates.map(function (item) { return { value: item.uf, label: item.name + " - " + item.uf }; }) : (cityCache[selectedUf] || []).map(function (city) { return { value: city, label: city }; });
+    items = items.filter(function (item) { return normalizeLocation(item.label).indexOf(query) >= 0; });
+    var list = combo.querySelector('[role="listbox"]');
+    list.innerHTML = items.length ? items.map(function (item, index) { return '<button type="button" role="option" id="' + list.id + '-option-' + index + '" data-location-value="' + item.value.replace(/"/g, "&quot;") + '">' + item.label + '</button>'; }).join("") : '<div class="landing-combobox-message">Nenhum resultado encontrado</div>';
+  }
+  function openLocationCombo(combo) {
+    if (!combo || combo.querySelector("[role=combobox]").disabled) return;
+    document.querySelectorAll(".landing-combobox.open").forEach(function (other) { if (other !== combo) other.classList.remove("open"); });
+    combo.classList.add("open");
+    combo.querySelector("[role=combobox]").setAttribute("aria-expanded", "true");
+    renderLocationOptions(combo);
+  }
+  function closeLocationCombo(combo) {
+    if (!combo) return;
+    combo.classList.remove("open");
+    combo.querySelector("[role=combobox]").setAttribute("aria-expanded", "false");
+  }
+  function selectLocation(combo, value, label) {
+    var type = combo.getAttribute("data-location-combobox");
+    var hidden = combo.querySelector("input[type=hidden]");
+    hidden.value = value;
+    combo.querySelector("[role=combobox]").value = label;
+    clearError(hidden, field(type === "state" ? "errEstado" : "errCidade"));
+    closeLocationCombo(combo);
+    if (type === "state") {
+      var city = document.querySelector('[data-location-combobox="city"]');
+      var cityHidden = city.querySelector("input[type=hidden]");
+      cityHidden.value = "";
+      clearError(cityHidden, field("errCidade"));
+      city.querySelector("[role=combobox]").value = "";
+      city.querySelector("[role=combobox]").disabled = false;
+      city.querySelector("[role=combobox]").placeholder = "Digite ou selecione...";
+      city.querySelector("button").disabled = false;
+      if (value) loadCities(value);
+    }
+  }
+  function loadCities(uf) {
+    if (cityCache[uf]) return Promise.resolve();
+    return fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" + encodeURIComponent(uf) + "/municipios")
+      .then(function (response) { if (!response.ok) throw new Error("IBGE indisponível"); return response.json(); })
+      .then(function (data) {
+        cityCache[uf] = data.map(function (city) { return city.nome; }).filter(Boolean).sort(function (a, b) { return a.localeCompare(b, "pt-BR"); });
+        var cityCombo = document.querySelector('[data-location-combobox="city"]');
+        if (cityCombo && field("fEstado").value === uf) renderLocationOptions(cityCombo);
+      })
+      .catch(function () { delete cityCache[uf]; var error = field("errCidade"); if (error) error.textContent = "Não foi possível carregar as cidades. Tente novamente."; });
+  }
+  document.querySelectorAll(".landing-combobox").forEach(function (combo) {
+    var input = combo.querySelector("[role=combobox]");
+    input.addEventListener("focus", function () { openLocationCombo(combo); });
+    input.addEventListener("input", function () {
+      var type = combo.getAttribute("data-location-combobox");
+      combo.querySelector("input[type=hidden]").value = "";
+      clearError(combo.querySelector("input[type=hidden]"), field(type === "state" ? "errEstado" : "errCidade"));
+      if (type === "state") {
+        var city = document.querySelector('[data-location-combobox="city"]');
+        city.querySelector("input[type=hidden]").value = "";
+        city.querySelector("[role=combobox]").value = "";
+        city.querySelector("[role=combobox]").disabled = true;
+        city.querySelector("button").disabled = true;
+      }
+      openLocationCombo(combo);
+      renderLocationOptions(combo);
+    });
+    combo.querySelector(".landing-combobox-toggle").addEventListener("click", function () { openLocationCombo(combo); input.focus(); });
+    combo.addEventListener("click", function (event) { var option = event.target.closest("[data-location-value]"); if (option) selectLocation(combo, option.getAttribute("data-location-value"), option.textContent); });
+    input.addEventListener("keydown", function (event) { var options = combo.querySelectorAll("[data-location-value]"); var index = Array.prototype.indexOf.call(options, combo.querySelector("[data-location-value].active")); if (event.key === "ArrowDown" || event.key === "ArrowUp") { event.preventDefault(); index = event.key === "ArrowDown" ? index + 1 : index - 1; index = Math.max(0, Math.min(index, options.length - 1)); options.forEach(function (option, i) { option.classList.toggle("active", i === index); }); } else if (event.key === "Enter" && options[index]) { event.preventDefault(); selectLocation(combo, options[index].getAttribute("data-location-value"), options[index].textContent); } else if (event.key === "Escape") closeLocationCombo(combo); });
+  });
+  document.addEventListener("click", function (event) { if (!event.target.closest(".landing-combobox")) document.querySelectorAll(".landing-combobox.open").forEach(closeLocationCombo); });
+
   function validate() {
     var valid = true;
     var firstInvalid = null;
@@ -259,9 +346,9 @@
       { id: "fOficina", err: "errOficina", min: 2, msg: "Informe o nome da oficina." },
       { id: "fWhats", err: "errWhats", min: 10, msg: "Informe um WhatsApp válido com DDD." },
       { id: "fEmail", err: "errEmail", min: 5, msg: "Informe um e-mail válido.", email: true },
-      { id: "fCidade", err: "errCidade", min: 3, msg: "Informe cidade e estado." },
+      { id: "fEstado", err: "errEstado", min: 2, msg: "Selecione um estado válido." },
+      { id: "fCidade", err: "errCidade", min: 3, msg: "Selecione uma cidade válida." },
       { id: "fTamanho", err: "errTamanho", min: 1, msg: "Selecione o tamanho da oficina." },
-      { id: "fMsg", err: "errMsg", min: 10, msg: "Escreva uma mensagem com pelo menos 10 caracteres." }
     ];
 
     inputs.forEach(function (item) {
@@ -299,33 +386,15 @@
     return { valid: valid, firstInvalid: firstInvalid };
   }
 
-  function buildWhatsAppMessage() {
-    var nome = field("fNome").value.trim();
-    var oficina = field("fOficina").value.trim();
-    var whats = field("fWhats").value.replace(/\D/g, "");
-    var email = field("fEmail").value.trim();
-    var cidade = field("fCidade").value.trim();
-    var tamanho = field("fTamanho") ? field("fTamanho").value : "Não informado";
-    var msg = field("fMsg").value.trim();
-
-    return (
-      "Olá! Sou *" + nome + "* da oficina *" + oficina + "* (" + cidade + ")." +
-      "\nQuero conhecer o Giro e agendar uma demonstração." +
-      (selectedPlan ? "\n\nPlano de interesse: *" + selectedPlan + "*" : "") +
-      "\n\nWhatsApp: " + whats +
-      "\nE-mail: " + email +
-      "\nTamanho da oficina: " + tamanho +
-      "\n\nMensagem: " + msg
-    );
-  }
-
   function collectLeadPayload() {
     return {
       nome: field("fNome").value.trim(),
       oficina: field("fOficina").value.trim(),
       whats: field("fWhats").value.replace(/\D/g, ""),
       email: field("fEmail").value.trim(),
-      cidade: field("fCidade").value.trim(),
+       state: field("fEstado").value.trim(),
+       stateName: stateLabel(field("fEstado").value.trim()).replace(/ - [A-Z]{2}$/, ""),
+       city: field("fCidade").value.trim(),
       tamanho: field("fTamanho") ? field("fTamanho").value : "Não informado",
       plano: selectedPlan,
       origem: "landing",
@@ -356,16 +425,20 @@
         return;
       }
 
-      sendLead(collectLeadPayload()).catch(function () {
-        return null;
+      var submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.disabled = true;
+      sendLead(collectLeadPayload()).then(function (response) {
+        return response.json().catch(function () { return {}; }).then(function (data) {
+          if (!response.ok) throw new Error(data.error || "Não foi possível enviar a solicitação.");
+        });
+      }).then(function () {
+        form.hidden = true;
+        successEl.hidden = false;
+        successEl.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
+      }).catch(function (error) {
+        if (submit) submit.disabled = false;
+        showMsg("error", error.message);
       });
-
-      var message = buildWhatsAppMessage();
-      var url = "https://wa.me/" + WHATS_APP_NUMBER + "?text=" + encodeURIComponent(message);
-      successWa.href = url;
-      form.hidden = true;
-      successEl.hidden = false;
-      successEl.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
     });
 
     form.querySelectorAll("input, select, textarea").forEach(function (input) {
@@ -386,6 +459,13 @@
       successEl.hidden = true;
       form.hidden = false;
       form.reset();
+      var cityCombo = document.querySelector('[data-location-combobox="city"]');
+      if (cityCombo) {
+        cityCombo.querySelector('[role="combobox"]').disabled = true;
+        cityCombo.querySelector('[role="combobox"]').placeholder = "Selecione o estado primeiro";
+        cityCombo.querySelector("button").disabled = true;
+        cityCombo.classList.remove("open");
+      }
       hideMsg();
       form.scrollIntoView({ block: "center", behavior: reducedMotion ? "auto" : "smooth" });
     });
@@ -424,18 +504,18 @@
   });
 
   function refreshKanbanStats() {
-    var counts = { aguardando: 0, emAndamento: 0, prontos: 0 };
+    var counts = { entrada: 0, pecas: 0, pronto: 0 };
     document.querySelectorAll(".hero-kanban .kanban-col").forEach(function (col) {
       var n = col.querySelectorAll(".vehicle-card").length;
       var c = parseInt(col.getAttribute("data-col") || "0", 10);
-      if (c === 0) counts.aguardando += n;
-      else if (c === 3) counts.prontos += n;
-      else counts.emAndamento += n;
+      if (c === 0) counts.entrada += n;
+      else if (c === 1) counts.pecas += n;
+      else if (c === 2) counts.pronto += n;
     });
     [
-      { stat: "aguardando", value: counts.aguardando },
-      { stat: "em-andamento", value: counts.emAndamento },
-      { stat: "prontos", value: counts.prontos }
+      { stat: "entrada", value: counts.entrada },
+      { stat: "pecas", value: counts.pecas },
+      { stat: "pronto", value: counts.pronto }
     ].forEach(function (item) {
       var el = document.querySelector('.mini-stat-value[data-stat="' + item.stat + '"]');
       if (el) el.textContent = item.value;
@@ -443,9 +523,8 @@
   }
 
   var NEXT_TAG = {
-    1: { cls: "tag-blue", text: "Diagnóstico" },
-    2: { cls: "tag-green", text: "Em serviço" },
-    3: { cls: "tag-check", text: "Entregar" }
+    1: { cls: "tag-blue", text: "Aguardando peças" },
+    2: { cls: "tag-check", text: "Pronto" }
   };
 
   document.querySelectorAll(".hero-kanban .kanban-col").forEach(function (col) {
@@ -453,7 +532,7 @@
       var card = e.target.closest(".vehicle-card");
       if (!card || card.parentNode !== col) return;
       var idx = parseInt(col.getAttribute("data-col") || "0", 10);
-      if (idx >= 3) {
+      if (idx >= 2) {
         card.classList.remove("is-shake");
         void card.offsetWidth;
         card.classList.add("is-shake");

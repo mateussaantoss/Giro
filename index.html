@@ -132,61 +132,48 @@
               <div class="panel panel-active" data-panel="kanban">
               <div class="kanban-hint"><span class="kh-dot" aria-hidden="true"></span>Clique em um veículo para avançar de etapa</div>
               <div class="hero-stats">
-                <div class="mini-stat"><span class="mini-stat-label">Em andamento</span><span class="mini-stat-value" data-stat="em-andamento">12</span></div>
-                <div class="mini-stat"><span class="mini-stat-label">Prontos</span><span class="mini-stat-value" data-stat="prontos">3</span></div>
-                <div class="mini-stat"><span class="mini-stat-label">Aguardando</span><span class="mini-stat-value" data-stat="aguardando">5</span></div>
+                 <div class="mini-stat"><span class="mini-stat-label">Entrada</span><span class="mini-stat-value" data-stat="entrada">2</span></div>
+                 <div class="mini-stat"><span class="mini-stat-label">Aguardando peças</span><span class="mini-stat-value" data-stat="pecas">2</span></div>
+                 <div class="mini-stat"><span class="mini-stat-label">Pronto</span><span class="mini-stat-value" data-stat="pronto">2</span></div>
               </div>
               <div class="hero-kanban">
                 <div class="kanban-col" data-col="0">
-                  <span class="kanban-col-title"><i class="dot dot-gray"></i>Aguardando</span>
+                   <span class="kanban-col-title"><i class="dot dot-gray"></i>Entrada</span>
                   <div class="vehicle-card">
                     <span class="vc-vehicle">Onix 2020</span>
                     <span class="vc-plate">BRA·2E19</span>
-                    <span class="vc-tag tag-amber">Aguardando</span>
+                     <span class="vc-tag tag-amber">Entrada</span>
                   </div>
                   <div class="vehicle-card">
                     <span class="vc-vehicle">Gol 2014</span>
                     <span class="vc-plate">XYZ·9A12</span>
-                    <span class="vc-tag tag-gray">Aguardando</span>
+                     <span class="vc-tag tag-gray">Entrada</span>
                   </div>
                 </div>
                 <div class="kanban-col" data-col="1">
-                  <span class="kanban-col-title"><i class="dot dot-blue"></i>Diagnóstico</span>
+                   <span class="kanban-col-title"><i class="dot dot-blue"></i>Aguardando peças</span>
                   <div class="vehicle-card">
                     <span class="vc-vehicle">Uno 2018</span>
                     <span class="vc-plate">KLM·4B77</span>
-                    <span class="vc-tag tag-blue">Diagnóstico</span>
+                     <span class="vc-tag tag-blue">Aguardando peças</span>
                   </div>
                   <div class="vehicle-card">
                     <span class="vc-vehicle">Saveiro 2016</span>
                     <span class="vc-plate">PQR·3C02</span>
-                    <span class="vc-tag tag-blue">Diagnóstico</span>
+                     <span class="vc-tag tag-blue">Aguardando peças</span>
                   </div>
                 </div>
                 <div class="kanban-col" data-col="2">
-                  <span class="kanban-col-title"><i class="dot dot-green"></i>Manutenção</span>
+                   <span class="kanban-col-title"><i class="dot dot-check"></i>Pronto</span>
                   <div class="vehicle-card">
                     <span class="vc-vehicle">Corolla 2019</span>
                     <span class="vc-plate">TUV·8E44</span>
-                    <span class="vc-tag tag-green">Em serviço</span>
+                     <span class="vc-tag tag-check">Pronto</span>
                   </div>
                   <div class="vehicle-card">
                     <span class="vc-vehicle">Palio 2012</span>
                     <span class="vc-plate">WXY·5F31</span>
-                    <span class="vc-tag tag-green">Em serviço</span>
-                  </div>
-                </div>
-                <div class="kanban-col" data-col="3">
-                  <span class="kanban-col-title"><i class="dot dot-check"></i>Pronto</span>
-                  <div class="vehicle-card">
-                    <span class="vc-vehicle">Creta 2021</span>
-                    <span class="vc-plate">JHG·7D90</span>
-                    <span class="vc-tag tag-check">Entregar</span>
-                  </div>
-                  <div class="vehicle-card">
-                    <span class="vc-vehicle">Kwid 2022</span>
-                    <span class="vc-plate">ASD·2G54</span>
-                    <span class="vc-tag tag-check">Entregar</span>
+                     <span class="vc-tag tag-check">Pronto</span>
                   </div>
                 </div>
               </div>
@@ -214,7 +201,7 @@
                 <div class="panel" data-panel="clientes">
                   <div class="client-list">
                     <div class="client-row"><span class="client-avatar av1">JR</span><div class="client-info"><strong>José Ramos</strong><span>Onix 2020 · BRA·2E19</span></div><span class="client-status st-ready">Pronto</span></div>
-                    <div class="client-row"><span class="client-avatar av2">MS</span><div class="client-info"><strong>Maria Souza</strong><span>Corolla 2019 · TUV·8E44</span></div><span class="client-status st-work">Em serviço</span></div>
+                    <div class="client-row"><span class="client-avatar av2">MS</span><div class="client-info"><strong>Maria Souza</strong><span>Corolla 2019 · TUV·8E44</span></div><span class="client-status st-work">Entrada</span></div>
                     <div class="client-row"><span class="client-avatar av3">AP</span><div class="client-info"><strong>André Pereira</strong><span>Saveiro 2016 · PQR·3C02</span></div><span class="client-status st-done">Entregue</span></div>
                     <div class="client-row"><span class="client-avatar av4">LC</span><div class="client-info"><strong>Lúcia Costa</strong><span>Palio 2012 · WXY·5F31</span></div><span class="client-status st-wait">Aguardando</span></div>
                   </div>
@@ -291,7 +278,7 @@
             </div>
             <div class="feature-mini" aria-hidden="true">
               <div class="mini-col"><span class="mini-col-title">Aguardando</span><span class="fc chip-list">Vectra 2008</span><span class="fc chip-list">Clio 2010</span></div>
-              <div class="mini-col"><span class="mini-col-title">Diagnóstico</span><span class="fc chip-list">Ecosport 2015</span></div>
+              <div class="mini-col"><span class="mini-col-title">Aguardando peças</span><span class="fc chip-list">Ecosport 2015</span></div>
               <div class="mini-col"><span class="mini-col-title">Manutenção</span><span class="fc chip-list">S10 2017</span><span class="fc chip-list">Civic 2013</span></div>
             </div>
           </article>
@@ -483,44 +470,44 @@
 
           <div class="faq-list">
             <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-answer-1">
                 <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg></span>
                 <span>O que é o Giro?</span>
                 <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
               </button>
-              <div class="faq-a"><div><p>O Giro é um sistema de gestão para oficinas mecânicas que centraliza clientes, veículos, ordens de serviço, histórico e atendimento.</p></div></div>
+              <div class="faq-a" id="faq-answer-1" role="region"><div><p>O Giro é um sistema de gestão para oficinas mecânicas que centraliza clientes, veículos, ordens de serviço, histórico e atendimento.</p></div></div>
             </div>
             <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-answer-2">
                 <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></span>
                 <span>O Giro substitui o WhatsApp?</span>
                 <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
               </button>
-              <div class="faq-a"><div><p>Não. O Giro organiza o atendimento e pode integrar o fluxo de comunicação pelo WhatsApp, ajudando a transformar as conversas em informações úteis para a oficina.</p></div></div>
+              <div class="faq-a" id="faq-answer-2" role="region"><div><p>Não. O Giro organiza o atendimento e pode integrar o fluxo de comunicação pelo WhatsApp, ajudando a transformar as conversas em informações úteis para a oficina.</p></div></div>
             </div>
             <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-answer-3">
                 <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg></span>
                 <span>Preciso instalar algum programa?</span>
                 <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
               </button>
-              <div class="faq-a"><div><p>Não. O Giro funciona como um sistema web acessível pelo navegador, em qualquer dispositivo com internet.</p></div></div>
+              <div class="faq-a" id="faq-answer-3" role="region"><div><p>Não. O Giro funciona como um sistema web acessível pelo navegador, em qualquer dispositivo com internet.</p></div></div>
             </div>
             <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-answer-4">
                 <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
                 <span>Posso cadastrar minha equipe?</span>
                 <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
               </button>
-              <div class="faq-a"><div><p>Sim. O sistema possui usuários e permissões para donos, gerentes, atendentes e mecânicos.</p></div></div>
+              <div class="faq-a" id="faq-answer-4" role="region"><div><p>Sim. O sistema possui usuários e permissões para donos, gerentes, atendentes e mecânicos.</p></div></div>
             </div>
             <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-answer-5">
                 <span class="faq-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3Z"/></svg></span>
                 <span>Como posso conhecer o Giro?</span>
                 <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
               </button>
-              <div class="faq-a"><div><p>Clique em “Solicitar demonstração” ou entre em contato pelo WhatsApp. Faremos uma demonstração personalizada da sua oficina.</p></div></div>
+              <div class="faq-a" id="faq-answer-5" role="region"><div><p>Clique em “Solicitar demonstração” e preencha o formulário. Faremos uma demonstração personalizada da sua oficina.</p></div></div>
             </div>
           </div>
         </div>
@@ -530,17 +517,7 @@
     <section class="section section-dark section-contact" id="contato">
       <div class="container">
         <div class="contact-wrap">
-          <div class="contact-copy">
-            <h2>Veja o GIRO na sua oficina.</h2>
-            <p>Conte brevemente como você trabalha. Nossa equipe mostra o sistema com foco na sua rotina.</p>
-            <div class="hero-actions">
-              <a href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Quero%20falar%20com%20a%20equipe%20do%20Giro." target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.94-1.6A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-2.93.95.96-2.86-.2-.3a8.28 8.28 0 1 1 6.73 3.55Zm4.54-6.2c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.44.25-.4.72-1.35.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.12.16 1.72 2.62 4.16 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
-                Falar com a equipe
-              </a>
-            </div>
-            <p class="contact-assurance">Demonstração sem compromisso · Atendimento em todo o Brasil</p>
-          </div>
 
           <div class="contact-card">
             <h3>Solicite uma demonstração</h3>
@@ -568,14 +545,29 @@
                   <input type="email" id="fEmail" name="email" autocomplete="email" placeholder="voce@oficina.com.br" required>
                   <span class="field-error" id="errEmail"></span>
                 </div>
-                <div class="field">
-                  <label for="fCidade">Cidade e estado</label>
-                  <input type="text" id="fCidade" name="cidade" autocomplete="address-level2" placeholder="Cidade · UF" required>
+                <div class="field location-field">
+                  <label for="fEstadoSearch">Estado / UF</label>
+                  <div class="landing-combobox" data-location-combobox="state">
+                    <input type="text" id="fEstadoSearch" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="fEstadoOptions" autocomplete="off" placeholder="Selecione o estado" required>
+                    <button type="button" class="landing-combobox-toggle" aria-label="Abrir estados">⌄</button>
+                    <input type="hidden" id="fEstado" name="state">
+                    <div class="landing-combobox-options" id="fEstadoOptions" role="listbox"></div>
+                  </div>
+                  <span class="field-error" id="errEstado"></span>
+                </div>
+                <div class="field location-field">
+                  <label for="fCidadeSearch">Cidade</label>
+                  <div class="landing-combobox" data-location-combobox="city">
+                    <input type="text" id="fCidadeSearch" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="fCidadeOptions" autocomplete="off" placeholder="Selecione o estado primeiro" disabled required>
+                    <button type="button" class="landing-combobox-toggle" aria-label="Abrir cidades" disabled>⌄</button>
+                    <input type="hidden" id="fCidade" name="city">
+                    <div class="landing-combobox-options" id="fCidadeOptions" role="listbox"></div>
+                  </div>
                   <span class="field-error" id="errCidade"></span>
                 </div>
                 <div class="field field-full">
                   <label for="fMsg">Mensagem</label>
-                  <textarea id="fMsg" name="mensagem" rows="4" placeholder="Conte um pouco sobre sua oficina e o que você precisa…" required></textarea>
+                  <textarea id="fMsg" name="mensagem" rows="4" placeholder="Conte um pouco sobre sua oficina e o que você precisa…"></textarea>
                   <span class="field-error" id="errMsg"></span>
                 </div>
               </div>
@@ -584,19 +576,19 @@
                 Solicitar demonstração
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </button>
-              <p class="form-note">Ao enviar, você estará aberto a ser contatado pela equipe do Giro pelo WhatsApp e e-mail.</p>
+              <p class="form-note">Ao enviar, sua solicitação será encaminhada por e-mail para a equipe do Giro.</p>
             </form>
 
             <div class="form-success" id="formSuccess" role="status" aria-live="polite" hidden>
               <span class="success-ico" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
               </span>
-              <h4>Dados preenchidos</h4>
-              <p>Para concluir o contato, abra o WhatsApp e envie a mensagem preparada para a nossa equipe.</p>
-              <a id="successWa" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp btn-block">
+              <h4>Solicitação enviada</h4>
+              <p>Recebemos seus dados. A equipe do Giro analisará sua solicitação e entrará em contato por e-mail.</p>
+              <!-- WhatsApp action removed: confirmation is intentionally email-only. <a id="successWa" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp btn-block">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.94-1.6A9.9 9.9 0 1 0 12.04 2Zm0 18.06c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-2.93.95.96-2.86-.2-.3a8.28 8.28 0 1 1 6.73 3.55Zm4.54-6.2c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.44.25-.4.72-1.35.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.65.3-.22.25-.85.84-.85 2.04 0 1.2.87 2.36 1 2.52.12.16 1.72 2.62 4.16 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
                 Abrir WhatsApp
-              </a>
+              </a> -->
               <button type="button" class="btn btn-ghost-dark btn-block" id="successBack">Enviar outra mensagem</button>
             </div>
           </div>

@@ -1,6 +1,7 @@
 node_modules/
 data/leads.json
 data/users.json
+data/*.json
 npm-debug.log*
 .env
 .DS_Store
